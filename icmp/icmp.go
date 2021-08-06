@@ -1,17 +1,19 @@
 package icmp
-//Ladon Scanner for golang 
+
+//Ladon Scanner for golang
 //Author: k8gege
 //K8Blog: http://k8gege.org/Ladon
 //Github: https://github.com/k8gege/LadonGo
 import (
-	"time"
+	"fmt"
+	"github.com/MBZ986/LadonGo/mode"
+	"log"
 	"net"
 	"os"
-	"fmt"
-	"log"
+	"time"
 )
 
-func Icmp(host string,Log *log.Logger) {
+func Icmp(host string, Log *log.Logger) {
 	var size int
 	var timeout int64
 	var seq int16 = 1
@@ -55,15 +57,16 @@ func Icmp(host string,Log *log.Logger) {
 	if err != nil || receive[ECHO_REPLY_HEAD_LEN+4] != msg[4] || receive[ECHO_REPLY_HEAD_LEN+5] != msg[5] || receive[ECHO_REPLY_HEAD_LEN+6] != msg[6] || receive[ECHO_REPLY_HEAD_LEN+7] != msg[7] || endduration >= int(timeout) || receive[ECHO_REPLY_HEAD_LEN] == 11 {
 		//
 	} else {
-		fmt.Println("ICMP: ",host)
+		fmt.Println("ICMP: ", host)
 	}
 }
-func Online(host string) {
-if IcmpOK(host) {
-fmt.Println("ICMP: "+host)
+func Online(host string, result mode.Result) {
+	if IcmpOK(host) {
+		//fmt.Println("ICMP: " + host)
+		result.Push(host)
+	}
 }
-}
-func IcmpOK(host string)(isok bool) {
+func IcmpOK(host string) (isok bool) {
 	var size int
 	var timeout int64
 	var seq int16 = 1
@@ -109,7 +112,7 @@ func IcmpOK(host string)(isok bool) {
 	} else {
 		return true
 	}
-	
+
 	return isok
 }
 

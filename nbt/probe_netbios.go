@@ -1,5 +1,6 @@
 package nbt
-//Ladon Scanner for golang 
+
+//Ladon Scanner for golang
 //Author: k8gege
 //K8Blog: http://k8gege.org/Ladon
 //Github: https://github.com/k8gege/LadonGo
@@ -7,6 +8,8 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
+	"github.com/MBZ986/LadonGo/mode"
+
 	//"log"
 	"math/rand"
 	"net"
@@ -158,11 +161,11 @@ func (this *ProbeNetbios) SendNameRequest(ip string) {
 	this.SendRequest(ip, this.CreateNameRequest(name))
 }
 
-func (this *ProbeNetbios) ResultFromIP(ip string) ScanResult {
+func (this *ProbeNetbios) ResultFromIP(ip string) mode.ScanResult {
 	sreply := this.replies[ip].statusReply
 	nreply := this.replies[ip].nameReply
 
-	res := ScanResult{
+	res := mode.ScanResult{
 		Host:  ip,
 		Port:  "137",
 		Proto: "udp",

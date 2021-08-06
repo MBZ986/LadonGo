@@ -1,44 +1,47 @@
 package http
-//Ladon Scanner for golang 
+
+//Ladon Scanner for golang
 //Author: k8gege
 //K8Blog: http://k8gege.org/Ladon
 //Github: https://github.com/k8gege/LadonGo
 import (
-	"fmt"
+	"github.com/MBZ986/LadonGo/mode"
 	"net/http"
 	//"os"
 	"strings"
 )
 
-func IsUrl(url string) ( result string)  {
+func IsUrl(url string) (result string) {
 	if !strings.Contains(url, "http") {
-		url := "http://"+url
+		url := "http://" + url
 		return url
 	}
 
 	return url
 }
-func HttpBanner(url string) ( result bool,err error)  {
+func HttpBanner(url string, res mode.Result) (result bool, err error) {
 
-	url2:=IsUrl(url)
-	response, err := http.Head(url2) 
+	url2 := IsUrl(url)
+	response, err := http.Head(url2)
 	if err != nil {
 		//fmt.Println(err.Error())
 		//os.Exit(2)
-		return false,err
+		return false, err
 	}
-	
+
 	//fmt.Println(response)
 	//fmt.Println(response.Status)
-	for k, v := range response.Header { 
+	for k, v := range response.Header {
 		//fmt.Println(k+":", v)
-		if k=="Server" {
-			fmt.Println(url2, v)
-			}
+		if k == "Server" {
+			//fmt.Println(url2, v)
+			data := map[string]interface{}{url2: v}
+			res.Push(data)
+		}
 	}
-	
-	return result,err
- 
+
+	return result, err
+
 }
 
 // func main() {

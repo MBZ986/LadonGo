@@ -16,3 +16,5 @@ administrator K8gege520
 sa k8gege
 sa k8team
 root bbbb
+root kaidi5208
+root sqlpass

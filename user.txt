@@ -4,3 +4,4 @@ admin
 root
 k8gege
 sa
+mysql

@@ -1,5 +1,6 @@
 package nbt
-//Ladon Scanner for golang 
+
+//Ladon Scanner for golang
 //Author: k8gege
 //K8Blog: http://k8gege.org/Ladon
 //Github: https://github.com/k8gege/LadonGo
@@ -209,6 +210,7 @@ func AddressesFromCIDR(cidr string, o chan<- string) {
 
 	for cur_addr = cur_base; cur_addr < end_base; cur_addr++ {
 		o <- UInt_to_IPv4(cur_addr)
+
 	}
 
 	return
