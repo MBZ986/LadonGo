@@ -1,18 +1,20 @@
 package smb
-//Ladon Scanner for golang 
+
+//Ladon Scanner for golang
 //Author: k8gege
 //K8Blog: http://k8gege.org/Ladon
 //Github: https://github.com/k8gege/LadonGo
 import (
+	"github.com/MBZ986/LadonGo/dic"
+	"github.com/MBZ986/LadonGo/logger"
+	"github.com/MBZ986/LadonGo/port"
+	"github.com/sas/secserver/app/models/asset-scan/mode"
 	"github.com/stacktitan/smb/smb"
-	"github.com/k8gege/LadonGo/port"
-	"github.com/k8gege/LadonGo/dic"
-	"github.com/k8gege/LadonGo/logger"
-	"fmt"
 	"strings"
 )
+
 //Not Support 2003
-func SmbAuth(ip string, port string, username string, password string) ( result bool,err error) {
+func SmbAuth(ip string, port string, username string, password string) (result bool, err error) {
 	result = false
 
 	options := smb.Options{
@@ -31,18 +33,22 @@ func SmbAuth(ip string, port string, username string, password string) ( result 
 			result = true
 		}
 	}
-	return result,err
+	return result, err
 }
 
-func SmbScan2(ScanType string,Target string) {
+func SmbScan2(ScanType string, Target string, result mode.Result) {
 
-	Loop:
+Loop:
 	for _, u := range dic.UserDic() {
 		for _, p := range dic.PassDic() {
-			fmt.Println("Check... "+Target+" "+u+" "+p)
-			res,err := SmbAuth(Target, "445", u, p)
-			if res==true && err==nil {
-				logger.PrintIsok(ScanType,Target,u, p)
+			//fmt.Println("Check... " + Target + " " + u + " " + p)
+			datamap := map[string]string{"flag": "checking", "target": Target, "user": u, "port": p}
+			result.Push(datamap)
+			res, err := SmbAuth(Target, "445", u, p)
+			if res == true && err == nil {
+				logger.PrintIsok(ScanType, Target, u, p)
+				datamap["flag"] = "ok"
+				result.Push(datamap)
 				break Loop
 			}
 		}
@@ -50,24 +56,27 @@ func SmbScan2(ScanType string,Target string) {
 
 }
 
-func SmbScan(ScanType string,Target string) {
-	if port.PortCheck(Target,445) {
+func SmbScan(ScanType string, Target string, result mode.Result) {
+	if port.PortCheck(Target, 445, result) {
 		if dic.UserPassIsExist() {
-			Loop:
+		Loop:
 			for _, up := range dic.UserPassDic() {
-				s :=strings.Split(up, " ")
+				s := strings.Split(up, " ")
 				u := s[0]
 				p := s[1]
-				fmt.Println("Check... "+Target+" "+u+" "+p)
-				res,err := SmbAuth(Target, "445", u, p)
-				if res==true && err==nil {
-					logger.PrintIsok(ScanType,Target,u, p)
+				//fmt.Println("Check... " + Target + " " + u + " " + p)
+				datamap := map[string]string{"flag": "checking", "target": Target, "port": "445", "user": u, "pass": p}
+				result.Push(datamap)
+				res, err := SmbAuth(Target, "445", u, p)
+				if res == true && err == nil {
+					//logger.PrintIsok(ScanType, Target, u, p)
+					datamap["flag"] = "found"
+					result.Push(datamap)
 					break Loop
 				}
-				
 			}
 		} else {
-			SmbScan2(ScanType,Target)	
+			SmbScan2(ScanType, Target, result)
 		}
 	}
 }

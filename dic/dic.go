@@ -11,21 +11,27 @@ import (
 	"os"
 )
 
+var (
+	dictPath = "public/dict/"
+	userPassPath = dictPath+"userpass.txt"
+	userPath = dictPath+"user.txt"
+	passPath = dictPath+"pass.txt"
+)
 func UserPassIsExist() bool{
-if IsExist("userpass.txt") {
+if IsExist(userPassPath) {
 	return true
 }
 return false
 }
 
 func PwdIsExist() bool{
-if IsExist("userpass.txt") {
+if IsExist(userPassPath) {
 	return true
 }
-if IsExist("user.txt") {
+if IsExist(userPath) {
 	return true
 }
-if IsExist("pass.txt") {
+if IsExist(passPath) {
 	return true
 }
 return false
@@ -59,7 +65,7 @@ func TxtRead(filename string) (lines []string) {
 	return lines
 }
 func UserDic() (users []string) {
-	dicname:="user.txt"
+	dicname:=userPath
 	file, err := os.Open(dicname)
 	if err != nil {
 		fmt.Println("Open "+dicname+" error, %v", err)
@@ -83,7 +89,7 @@ func UserDic() (users []string) {
 }
 
 func PassDic() (password []string) {
-	dicname:="pass.txt"
+	dicname:=userPassPath
 	file, err := os.Open(dicname)
 	if err != nil {
 		fmt.Println("Open "+dicname+" error, %v", err)
@@ -108,7 +114,7 @@ func PassDic() (password []string) {
 }
 
 func UserPassDic() (userpass []string) {
-	dicname:="userpass.txt"
+	dicname:=userPassPath
 	file, err := os.Open(dicname)
 	if err != nil {
 		fmt.Println("Open "+dicname+" error, %v", err)

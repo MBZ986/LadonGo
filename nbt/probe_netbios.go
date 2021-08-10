@@ -8,7 +8,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"github.com/MBZ986/LadonGo/mode"
+	"github.com/sas/secserver/app/models/asset-scan/mode"
 
 	//"log"
 	"math/rand"

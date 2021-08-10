@@ -6,7 +6,7 @@ package icmp
 //Github: https://github.com/k8gege/LadonGo
 import (
 	"fmt"
-	"github.com/MBZ986/LadonGo/mode"
+	"github.com/sas/secserver/app/models/asset-scan/mode"
 	"log"
 	"net"
 	"os"

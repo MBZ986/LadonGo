@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/MBZ986/LadonGo/mode"
+	"github.com/sas/secserver/app/models/asset-scan/mode"
 	"golang.org/x/time/rate"
 	"os"
 	"runtime"

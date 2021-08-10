@@ -5,13 +5,11 @@ package smb
 //Github: https://github.com/k8gege/LadonGo
 import (
 	"bytes"
-	"fmt"
+	"github.com/sas/secserver/app/models/asset-scan/mode"
 	"net"
 	"strconv"
 	"strings"
 	"time"
-	//"runtime"
-	"github.com/k8gege/LadonGo/logger"
 )
 
 const (
@@ -102,7 +100,7 @@ const (
 	"\x00\x00\x00\x00"
 )
 
-func SmbGhost(ip string, port int) {
+func SmbGhost(ip string, port int,result mode.Result) {
 	addr := strings.Join([]string{ip, strconv.Itoa(port)}, ":")
 	conn, err := net.DialTimeout("tcp", addr, 2*time.Second)
 
@@ -126,10 +124,14 @@ func SmbGhost(ip string, port int) {
 			//	fmt.Println(ip + " CVE-2020-0796 SmbGhost Vulnerable")
 			//} else
 			//{fmt.Println("\033[35m"+ip + " CVE-2020-0796 SmbGhost Vulnerable"+"\033[0m")}
-			logger.PrintVul(ip + " CVE-2020-0796 SmbGhost Vulnerable")
+			//logger.PrintVul(ip + " CVE-2020-0796 SmbGhost Vulnerable")
+			datamap := map[string]string{"ip":ip,"vulnerable":"true"}
+			result.Push(datamap)
 		} else {
 			//fmt.Println(ip + " Not Vulnerable")
-			fmt.Println(ip)
+			//fmt.Println(ip)
+			datamap := map[string]string{"ip":ip,"vulnerable":"false"}
+			result.Push(datamap)
 		}
 	}
 }

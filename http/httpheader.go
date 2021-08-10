@@ -5,7 +5,8 @@ package http
 //K8Blog: http://k8gege.org/Ladon
 //Github: https://github.com/k8gege/LadonGo
 import (
-	"github.com/MBZ986/LadonGo/mode"
+	"fmt"
+	"github.com/sas/secserver/app/models/asset-scan/mode"
 	"net/http"
 	//"os"
 	"strings"
@@ -35,8 +36,8 @@ func HttpBanner(url string, res mode.Result) (result bool, err error) {
 		//fmt.Println(k+":", v)
 		if k == "Server" {
 			//fmt.Println(url2, v)
-			data := map[string]interface{}{url2: v}
-			res.Push(data)
+			//data := map[string]interface{}{url2: v}
+			res.Push(fmt.Sprintf("HttpBanner:%s\t%s",url2,v))
 		}
 	}
 

@@ -1,17 +1,20 @@
 package smb
-//Ladon Scanner for golang 
+
+//Ladon Scanner for golang
 //Author: k8gege
 //K8Blog: http://k8gege.org/Ladon
 //Github: https://github.com/k8gege/LadonGo
 import (
 	"encoding/binary"
 	"encoding/hex"
+	"github.com/sas/secserver/app/models/asset-scan/mode"
+
 	//"flag"
 	"fmt"
 	"net"
+	"strings"
 	//"sync"
 	"time"
-	"strings"
 	//"runtime"
 	"github.com/k8gege/LadonGo/logger"
 )
@@ -24,7 +27,7 @@ var (
 	trans2SessionSetupRequest, _ = hex.DecodeString("0000004eff534d4232000000001807c00000000000000000000000000008fffe000841000f0c0000000100000000000000a6d9a40000000c00420000004e0001000e000d0000000000000000000000000000")
 )
 
-func MS17010(ip string, timeout time.Duration) {
+func MS17010(ip string, timeout time.Duration, result mode.Result) {
 	// connecting to a host in LAN if reachable should be very quick
 	conn, err := net.DialTimeout("tcp", ip+":445", time.Second*timeout)
 	if err != nil {
@@ -72,7 +75,7 @@ func MS17010(ip string, timeout time.Duration) {
 			for i := 10; i < len(sessionSetupResponse)-1; i++ {
 				if sessionSetupResponse[i] == 0 && sessionSetupResponse[i+1] == 0 {
 					os = string(sessionSetupResponse[10:i])
-					os = strings.Replace(os, string([]byte{0x00}), "",-1)
+					os = strings.Replace(os, string([]byte{0x00}), "", -1)
 					break
 				}
 			}
@@ -105,7 +108,7 @@ func MS17010(ip string, timeout time.Duration) {
 		//if runtime.GOOS=="windows" {fmt.Printf("%s\tMS17-010\t(%s)\n", ip, os)
 		//} else{fmt.Printf("\033[33m%s\tMS17-010\t(%s)\033[0m\n", ip, os)}
 		//color.Magenta("%s\tMS17-010\t(%s)\n", ip, os)
-		logger.PrintVul(ip+"\tMS17-010\t"+os+"\n")
+		logger.PrintVul(ip + "\tMS17-010\t" + os + "\n")
 		// detect present of DOUBLEPULSAR SMB implant
 		trans2SessionSetupRequest[28] = treeID[0]
 		trans2SessionSetupRequest[29] = treeID[1]
@@ -120,10 +123,14 @@ func MS17010(ip string, timeout time.Duration) {
 
 		if reply[34] == 0x51 {
 			fmt.Printf("DOUBLEPULSAR SMB IMPLANT in %s\n", ip)
+			datamap := map[string]string{"ip": ip, "os": os}
+			result.Push(datamap)
 		}
 
 	} else {
-		fmt.Printf("%s\t        \t(%s)\n", ip, os)
+		//fmt.Printf("%s\t        \t(%s)\n", ip, os)
+		//datamap := map[string]string{"ip": ip, "os": os}
+		result.Push(fmt.Sprintf("%s\t%s",ip,os))
 	}
 
 }
@@ -138,32 +145,32 @@ func incIP(ip net.IP) {
 }
 
 // func main() {
-	// host := flag.String("i", "", "single ip address")
-	// timeout := flag.Duration("t", 1, "timeout on connection, in seconds")
-	// netCIDR := flag.String("n", "", "CIDR notation of a network")
-	// flag.Parse()
+// host := flag.String("i", "", "single ip address")
+// timeout := flag.Duration("t", 1, "timeout on connection, in seconds")
+// netCIDR := flag.String("n", "", "CIDR notation of a network")
+// flag.Parse()
 
-	// if *host != "" {
-		// checkHost(*host, *timeout)
-		// return
-	// }
+// if *host != "" {
+// checkHost(*host, *timeout)
+// return
+// }
 
-	// if *netCIDR != "" && *host == "" {
-		// ip, ipNet, err := net.ParseCIDR(*netCIDR)
-		// if err != nil {
-			// fmt.Println("invalid CIDR")
-			// return
-		// }
-		// var wg sync.WaitGroup
+// if *netCIDR != "" && *host == "" {
+// ip, ipNet, err := net.ParseCIDR(*netCIDR)
+// if err != nil {
+// fmt.Println("invalid CIDR")
+// return
+// }
+// var wg sync.WaitGroup
 
-		// for ip := ip.Mask(ipNet.Mask); ipNet.Contains(ip); incIP(ip) {
-			// wg.Add(1)
-			// go func(ip string) {
-				// defer wg.Done()
-				// checkHost(ip, *timeout)
-			// }(ip.String())
-		// }
+// for ip := ip.Mask(ipNet.Mask); ipNet.Contains(ip); incIP(ip) {
+// wg.Add(1)
+// go func(ip string) {
+// defer wg.Done()
+// checkHost(ip, *timeout)
+// }(ip.String())
+// }
 
-		// wg.Wait()
-	// }
+// wg.Wait()
+// }
 // }

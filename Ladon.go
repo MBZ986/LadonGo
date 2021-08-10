@@ -12,7 +12,7 @@ import (
 	"github.com/MBZ986/LadonGo/ftp"
 	"github.com/MBZ986/LadonGo/http"
 	"github.com/MBZ986/LadonGo/icmp"
-	"github.com/MBZ986/LadonGo/mode"
+	"github.com/sas/secserver/app/models/asset-scan/mode"
 	"github.com/MBZ986/LadonGo/mongodb"
 	"github.com/MBZ986/LadonGo/mssql"
 	"github.com/MBZ986/LadonGo/mysql"
@@ -478,10 +478,10 @@ func AScan(ScanType string, Target string, result mode.Result) {
 func LadonScan(ScanType string, Target string, result mode.Result) {
 	if ScanType == "GETEXFQND" || ScanType == "FINDEXCHANGE" {
 		//vul.GetExFQND(Target)
-		//} else if ScanType == "CVE-2021-26855" {
-		//vul.CheckCVE_2021_26855(Target)
+	} else if ScanType == "CVE-2021-26855" {
+		vul.CheckCVE_2021_26855(Target,result)
 	} else if ScanType == "CVE-2021-21972" {
-		vul.CheckCVE_2021_21972(Target)
+		vul.CheckCVE_2021_21972(Target, result)
 	} else if ScanType == "PINGSCAN" || ScanType == "PING" {
 		ping.PingName(Target, result)
 	} else if ScanType == "ICMPSCAN" || ScanType == "ICMP" {
@@ -517,40 +517,40 @@ func LadonScan(ScanType string, Target string, result mode.Result) {
 		if isicmp {
 			if icmp.IcmpOK(Target) {
 				if strings.Contains(scanports, ",") {
-					port.ScanPortBanners(Target, scanports)
+					port.ScanPortBanners(Target, scanports, result)
 				} else if strings.Contains(scanports, "-") {
-					port.ScanPortBannerRange(Target, scanports)
+					port.ScanPortBannerRange(Target, scanports, result)
 				} else if scanports != "" {
-					port.ScanPortBannerSingle(Target, scanports)
+					port.ScanPortBannerSingle(Target, scanports, result)
 				} else {
-					port.ScanPortBanner(Target)
+					port.ScanPortBanner(Target, result)
 				}
 			}
 		} else if ping.PingOK(Target) {
 			if strings.Contains(scanports, ",") {
-				port.ScanPortBanners(Target, scanports)
+				port.ScanPortBanners(Target, scanports, result)
 			} else if strings.Contains(scanports, "-") {
-				port.ScanPortBannerRange(Target, scanports)
+				port.ScanPortBannerRange(Target, scanports, result)
 			} else if scanports != "" {
-				port.ScanPortBannerSingle(Target, scanports)
+				port.ScanPortBannerSingle(Target, scanports, result)
 			} else {
-				port.ScanPortBanner(Target)
+				port.ScanPortBanner(Target, result)
 			}
 		}
 	} else if ScanType == "TCPBANNER" || ScanType == "PORTSCANBNNER" || ScanType == "SCANPORTBANNER" {
 		if isicmp {
 			if icmp.IcmpOK(Target) {
 				if strings.Contains(scanports, ",") {
-					port.ScanPortBanners(Target, scanports)
+					port.ScanPortBanners(Target, scanports, result)
 				} else {
-					port.ScanPortBanner(Target)
+					port.ScanPortBanner(Target, result)
 				}
 			}
 		} else if ping.PingOK(Target) {
 			if strings.Contains(scanports, ",") {
-				port.ScanPortBanners(Target, scanports)
+				port.ScanPortBanners(Target, scanports, result)
 			} else {
-				port.ScanPortBanner(Target)
+				port.ScanPortBanner(Target, result)
 			}
 		}
 	} else if ScanType == "HTTPBANNER" || ScanType == "WEBBANNER" {
@@ -558,43 +558,43 @@ func LadonScan(ScanType string, Target string, result mode.Result) {
 	} else if ScanType == "HTTPTITLE" || ScanType == "WEBTITLE" {
 		http.ScanTitle(Target, result)
 	} else if ScanType == "T3SCAN" || ScanType == "WEBLOGICSCAN" {
-		t3.T3version(Target)
+		t3.T3version(Target, result)
 	} else if ScanType == "OXIDSCAN" || ScanType == "ETHSCAN" {
-		dcom.OxidInfo(Target)
+		dcom.OxidInfo(Target, result)
 	} else if ScanType == "MS17010" {
-		smb.MS17010(Target, 3)
+		smb.MS17010(Target, 3, result)
 	} else if ScanType == "SMBSCAN" {
-		smb.SmbScan(ScanType, Target)
+		smb.SmbScan(ScanType, Target,result)
 	} else if ScanType == "NBTINFO" {
 		//nbt.Info(ScanType,Target)
 		//nbt.Info(Target)
 		//nbt.Info()
 	} else if ScanType == "FTPSCAN" {
-		ftp.FtpScan(ScanType, Target)
+		ftp.FtpScan(ScanType, Target,result)
 	} else if ScanType == "SMBGHOST" || ScanType == "CVE-2020-0796" {
-		smb.SmbGhost(Target, 445)
+		smb.SmbGhost(Target, 445, result)
 	} else if ScanType == "SSHSCAN" {
-		ssh.SshScan(ScanType, Target)
+		ssh.SshScan(ScanType, Target,result)
 	} else if ScanType == "MYSQLSCAN" {
-		mysql.MysqlScan(ScanType, Target)
+		mysql.MysqlScan(ScanType, Target,result)
 	} else if ScanType == "MSSQLSCAN" {
-		mssql.MssqlScan(ScanType, Target)
+		mssql.MssqlScan(ScanType, Target,result)
 	} else if ScanType == "MONGODBSCAN" {
-		mgo.MongoScan(ScanType, Target)
+		mgo.MongoScan(ScanType, Target,result)
 	} else if ScanType == "ORACLESCAN" {
-		oracle.OracleScan(ScanType, Target)
+		oracle.OracleScan(ScanType, Target,result)
 	} else if ScanType == "SQLPLUSSCAN" {
-		oracle.SqlPlusScan(ScanType, Target)
+		oracle.SqlPlusScan(ScanType, Target,result)
 	} else if ScanType == "WINRMSCAN" {
-		winrm.WinrmScan(ScanType, Target)
+		winrm.WinrmScan(ScanType, Target,result)
 	} else if ScanType == "REDISSCAN" {
 		redis.RedisNullScan(ScanType, Target)
 	} else if ScanType == "ROUTEROSSCAN" {
-		routeros.RouterOSScan(ScanType, Target)
+		routeros.RouterOSScan(ScanType, Target,result)
 	} else if ScanType == "CVE-2018-14847" {
 		exp.Cve2018_14847Exp(Target, "8291")
 	} else if ScanType == "HTTPBASICSCAN" || ScanType == "BASICAUTHSCAN" || ScanType == "401SCAN" {
-		http.BasicAuthScan(ScanType, "http://"+Target)
+		http.BasicAuthScan(ScanType, "http://"+Target,result)
 	} else {
 		fmt.Println(ScanType, "Moudle Not Found")
 		os.Exit(0)
@@ -602,13 +602,13 @@ func LadonScan(ScanType string, Target string, result mode.Result) {
 }
 func LadonUrlScan(ScanType string, Target string, result mode.Result) {
 	if ScanType == "CVE-2021-21972" {
-		vul.CheckCVE_2021_21972(Target)
+		vul.CheckCVE_2021_21972(Target, result)
 	} else if ScanType == "HTTPBANNER" || ScanType == "WEBBANNER" {
 		http.HttpBanner(Target, result)
 	} else if ScanType == "HTTPTITLE" || ScanType == "WEBTITLE" {
 		http.ScanTitle(Target, result)
 	} else if ScanType == "HTTPBASICSCAN" || ScanType == "BASICAUTHSCAN" || ScanType == "401SCAN" {
-		http.BasicAuthScan(ScanType, Target)
+		http.BasicAuthScan(ScanType, Target,result)
 	} else {
 		fmt.Println(ScanType, "Moudle Not Found")
 		os.Exit(0)

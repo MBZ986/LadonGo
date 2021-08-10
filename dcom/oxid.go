@@ -1,19 +1,20 @@
 package dcom
-//Ladon Scanner for golang 
+
+//Ladon Scanner for golang
 //Author: k8gege
 //K8Blog: http://k8gege.org/Ladon
 //Github: https://github.com/k8gege/LadonGo
 import (
-	"fmt"
+	"github.com/sas/secserver/app/models/asset-scan/mode"
 	"net"
 	"strings"
 	"time"
 )
 
-func OxidInfo(host string) ([]string, error) {
+func OxidInfo(host string, result mode.Result) ([]string, error) {
 	timeout := 3000 * time.Millisecond
 	d := net.Dialer{Timeout: timeout}
-	tcpcon, err := d.Dial("tcp", host+":135") 
+	tcpcon, err := d.Dial("tcp", host+":135")
 	if err != nil {
 		return nil, err
 	}
@@ -41,24 +42,39 @@ func OxidInfo(host string) ([]string, error) {
 		return nil, err
 	}
 	recvStr := string(recvData[:n])
-	if len(recvStr)>42 {
+	if len(recvStr) > 42 {
 		recvStr_v2 := recvStr[42:]
 		packet_v2_end := strings.Index(recvStr_v2, "\x09\x00\xff\xff\x00\x00")
 		packet_v2 := recvStr_v2[:packet_v2_end]
 		hostname_list := strings.Split(packet_v2, "\x00\x00")
-		if len(hostname_list) >1 {
+		var datastr string
+		if len(hostname_list) > 1 {
 			for _, value := range hostname_list {
-				if strings.Trim(value," ")!="" {
-					fmt.Println(strings.Replace(value, string([]byte{0x00}), "",-1))
+				if strings.Trim(value, " ") != "" {
+					datastr += replaceSpace(value) + "\t"
+					//fmt.Println(replace)
 				}
 			}
+			//fmt.Println(datastr)
+			result.Push(datastr)
 			return hostname_list, nil
 		}
 	}
-	return nil,nil
-	
-}
+	return nil, nil
 
+}
+func replaceSpace(str string) string{
+	runes := []rune(str)
+	newstr := ""
+	for _, s :=range runes{
+		//fmt.Println(string(s))
+		//fmt.Println(s)
+		if s!=0{
+			newstr+=string(s)
+		}
+	}
+	return newstr
+}
 //Result
 // WIN-788
 // 192.168.1.30

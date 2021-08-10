@@ -6,7 +6,8 @@ package http
 //Github: https://github.com/k8gege/LadonGo
 import (
 	"bytes"
-	"github.com/MBZ986/LadonGo/mode"
+	"fmt"
+	"github.com/sas/secserver/app/models/asset-scan/mode"
 	"github.com/k8gege/LadonGo/str"
 	"io"
 	"net/http"
@@ -51,20 +52,23 @@ func ScanTitle(host string, result mode.Result) {
 		title := GetTitle(GetHtml(host))
 		if title != "" {
 			//fmt.Println(host+"\t"+title)
-			result.Push(map[string]string{host: title})
+			//result.Push(map[string]string{host: title})
+			result.Push(fmt.Sprintf("%s\t%s",host,title))
 		}
 	} else {
 		url := "http://" + host
 		title := GetTitle(GetHtml(url))
 		if title != "" {
 			//fmt.Println(url+"\t"+title)
-			result.Push(map[string]string{host: title})
+			//result.Push(map[string]string{host: title})
+			result.Push(fmt.Sprintf("%s\t%s",host,title))
 		}
 		url = "https://" + host
 		title = GetTitle(GetHtml(url))
 		if title != "" {
 			//fmt.Println(url+"\t"+title)
-			result.Push(map[string]string{host: title})
+			//result.Push(map[string]string{host: title})
+			result.Push(fmt.Sprintf("%s\t%s",host,title))
 		}
 	}
 }

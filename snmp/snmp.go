@@ -6,7 +6,7 @@ package snmp
 //Github: https://github.com/k8gege/LadonGo
 import (
 	"fmt"
-	"github.com/MBZ986/LadonGo/mode"
+	"github.com/sas/secserver/app/models/asset-scan/mode"
 	"github.com/alouca/gosnmp"
 )
 
@@ -36,8 +36,9 @@ func GetInfo(host string, result mode.Result) {
 		for _, v := range resp.Variables {
 			switch v.Type {
 			case gosnmp.OctetString:
-				fmt.Println("Snmp: "+host, "\t", HostName(host), "\t", v.Value.(string))
-				result.Push(host)
+				//fmt.Println("Snmp: "+host, "\t", HostName(host), "\t", v.Value.(string))
+				//datamap := map[string]string{"host": host, "hostname": HostName(host), "info": v.Value.(string)}
+				result.Push(fmt.Sprintf("Snmp:%s\t%s\t%s",host,HostName(host),v.Value.(string)))
 			}
 		}
 	}
