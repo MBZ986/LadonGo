@@ -37,7 +37,7 @@ func main() {
 	//testHttpTitle()
 	//testT3Scan()
 	//testPortScan()
-	testOxidScan()
+	//testOxidScan()
 	//testMS17010()
 	//testSmbGhost()
 	//testCVE202121972()
@@ -51,98 +51,98 @@ func main() {
 	}()
 	//testSshScan()
 }
-//SshScan
-func testSshScan(){
-	proxyRun(new(mode.SmbScanResult), "Ladon", "192.168.131.0/c", "SshScan")
-}
-
-//SmbScan
-func testSmbScan(){
-	proxyRun(new(mode.SmbScanResult), "Ladon", "192.168.128.0/c", "SmbScan")
-}
-
-//CVE202126855
-func testCVE202126855(){
-	proxyRun(new(mode.BaseResult), "Ladon", "192.168.128.0/c", "CVE-2021-26855")
-}
-
-//CVE202121972
-func testCVE202121972(){
-	proxyRun(new(mode.BaseResult), "Ladon", "192.168.128.0/c", "CVE-2021-21972")
-}
-
-//SmbGhost
-func testSmbGhost(){
-	proxyRun(new(mode.SmbGhostResult), "Ladon", "192.168.128.0/c", "SmbGhost")
-}
-
-
-//MS17010
-func testMS17010(){
-	proxyRun(new(mode.MS17010Result), "Ladon", "192.168.128.0/c", "MS17010")
-	//proxyRun(new(mode.BaseResult), "Ladon", "192.168.131.0/c", "OxidScan")
-}
-
-//OxidScan
-func testOxidScan(){
-	proxyRun(new(mode.OxidScanResult), "Ladon", "60.205.217.70/c", "OxidScan")
-	//proxyRun(new(mode.BaseResult), "Ladon", "192.168.131.0/c", "OxidScan")
-}
-
-//PortScan
-func testPortScan() {
-	//常规端口扫描
-	//proxyRun(new(mode.PortScanResult), "Ladon", "60.205.217.70/c", "PortScan")
-	//指定端口扫描
-	//proxyRun(new(mode.PortScanResult), "Ladon", "60.205.217.70/c","PortScan","3306")
-	//proxyRun(new(mode.PortScanResult), "Ladon", "60.205.217.70/c", "PortScan","3306,8080")
-	//范围端口扫描
-	proxyRun(new(mode.PortScanResult), "Ladon", "60.205.217.70/c", "PortScan","8000-9000")
-}
-
-//T3Scan
-func testT3Scan() {
-	proxyRun(new(mode.HttpTitleResult), "Ladon", "60.205.217.70/c", "T3Scan")
-}
-
-//HttpTitle
-func testHttpTitle() {
-	proxyRun(new(mode.HttpTitleResult), "Ladon", "60.205.217.70/c", "HttpTitle")
-}
-
-//HttpBanner
-func testHttpBanner() {
-	//var result mode.Result = new(mode.HttpBannerResult)
-	//result.Init()
-	//go ladon.Run(result, "Ladon", "192.168.131.0/24", "HttpBanner")
-	//process := result.Process()
-	//result.WaitProc()
-	//spew.Dump(process)
-	//fmt.Println("545")
-	proxyRun(new(mode.HttpBannerResult), "Ladon", "192.168.128.0/c", "HttpBanner")
-}
-
-//SnmpScan
-func testSnmpScan() {
-	proxyRun(new(mode.BaseResult), "Ladon", "192.168.128.0/c", "SnmpScan")
-}
-
-//IcmpScan
-func testIcmpScan() {
-	proxyRun(new(mode.BaseResult), "Ladon", "192.168.128.0/24", "IcmpScan")
-}
-
-//NBTINFO
-func testNbtInfo() {
-	//var result mode.Result = new(mode.NbtInfoResult)
-	//result.Init(4)
-	//go ladon.Run(result, "Ladon", "192.168.128.0/24", "nbtinfo")
-	//process := result.Process()
-	//result.WaitProc()
-	//spew.Dump(process)
-
-	proxyRun(new(mode.NbtInfoResult), "Ladon", "192.168.128.0/24", "nbtinfo")
-}
+////SshScan
+//func testSshScan(){
+//	proxyRun(new(mode.SmbScanResult), "Ladon", "192.168.131.0/c", "SshScan")
+//}
+//
+////SmbScan
+//func testSmbScan(){
+//	proxyRun(new(mode.SmbScanResult), "Ladon", "192.168.128.0/c", "SmbScan")
+//}
+//
+////CVE202126855
+//func testCVE202126855(){
+//	proxyRun(new(mode.BaseResult), "Ladon", "192.168.128.0/c", "CVE-2021-26855")
+//}
+//
+////CVE202121972
+//func testCVE202121972(){
+//	proxyRun(new(mode.BaseResult), "Ladon", "192.168.128.0/c", "CVE-2021-21972")
+//}
+//
+////SmbGhost
+//func testSmbGhost(){
+//	proxyRun(new(mode.SmbGhostResult), "Ladon", "192.168.128.0/c", "SmbGhost")
+//}
+//
+//
+////MS17010
+//func testMS17010(){
+//	proxyRun(new(mode.MS17010Result), "Ladon", "192.168.128.0/c", "MS17010")
+//	//proxyRun(new(mode.BaseResult), "Ladon", "192.168.131.0/c", "OxidScan")
+//}
+//
+////OxidScan
+//func testOxidScan(){
+//	proxyRun(new(mode.OxidScanResult), "Ladon", "60.205.217.70/c", "OxidScan")
+//	//proxyRun(new(mode.BaseResult), "Ladon", "192.168.131.0/c", "OxidScan")
+//}
+//
+////PortScan
+//func testPortScan() {
+//	//常规端口扫描
+//	//proxyRun(new(mode.PortScanResult), "Ladon", "60.205.217.70/c", "PortScan")
+//	//指定端口扫描
+//	//proxyRun(new(mode.PortScanResult), "Ladon", "60.205.217.70/c","PortScan","3306")
+//	//proxyRun(new(mode.PortScanResult), "Ladon", "60.205.217.70/c", "PortScan","3306,8080")
+//	//范围端口扫描
+//	proxyRun(new(mode.PortScanResult), "Ladon", "60.205.217.70/c", "PortScan","8000-9000")
+//}
+//
+////T3Scan
+//func testT3Scan() {
+//	proxyRun(new(mode.HttpTitleResult), "Ladon", "60.205.217.70/c", "T3Scan")
+//}
+//
+////HttpTitle
+//func testHttpTitle() {
+//	proxyRun(new(mode.HttpTitleResult), "Ladon", "60.205.217.70/c", "HttpTitle")
+//}
+//
+////HttpBanner
+//func testHttpBanner() {
+//	//var result mode.Result = new(mode.HttpBannerResult)
+//	//result.Init()
+//	//go ladon.Run(result, "Ladon", "192.168.131.0/24", "HttpBanner")
+//	//process := result.Process()
+//	//result.WaitProc()
+//	//spew.Dump(process)
+//	//fmt.Println("545")
+//	proxyRun(new(mode.HttpBannerResult), "Ladon", "192.168.128.0/c", "HttpBanner")
+//}
+//
+////SnmpScan
+//func testSnmpScan() {
+//	proxyRun(new(mode.BaseResult), "Ladon", "192.168.128.0/c", "SnmpScan")
+//}
+//
+////IcmpScan
+//func testIcmpScan() {
+//	proxyRun(new(mode.BaseResult), "Ladon", "192.168.128.0/24", "IcmpScan")
+//}
+//
+////NBTINFO
+//func testNbtInfo() {
+//	//var result mode.Result = new(mode.NbtInfoResult)
+//	//result.Init(4)
+//	//go ladon.Run(result, "Ladon", "192.168.128.0/24", "nbtinfo")
+//	//process := result.Process()
+//	//result.WaitProc()
+//	//spew.Dump(process)
+//
+//	proxyRun(new(mode.NbtInfoResult), "Ladon", "192.168.128.0/24", "nbtinfo")
+//}
 
 //PINGSCAN
 func testPingScan() {
