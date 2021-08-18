@@ -7,7 +7,7 @@ import (
 	"github.com/sas/secserver/app/models/asset-scan/mode"
 	"github.com/MBZ986/LadonGo/port"
 	"github.com/MBZ986/LadonGo/dic"
-	"fmt"
+	//"fmt"
 	"database/sql"
 	_"github.com/go-sql-driver/mysql"
 	"strings"
@@ -25,11 +25,10 @@ func MysqlAuth(ip string, port string, user string, pass string) ( result bool,e
 }
 
 func MysqlScan2(ScanType string,Target string, result mode.Result) {
-
 	Loop:
 	for _, u := range dic.UserDic() {
 		for _, p := range dic.PassDic() {
-			fmt.Println("Check... "+Target+" "+u+" "+p)
+			//fmt.Println("Check... "+Target+" "+u+" "+p)
 			datamap := map[string]string{"flag": "checking", "target": Target, "port": "3306", "user": u, "pass": p}
 			result.Push(datamap)
 			res,err := MysqlAuth(Target, "3306", u, p)

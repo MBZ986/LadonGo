@@ -17,7 +17,7 @@ import (
 	"github.com/MBZ986/LadonGo/mssql"
 	"github.com/MBZ986/LadonGo/mysql"
 	"github.com/MBZ986/LadonGo/nbt"
-	"github.com/MBZ986/LadonGo/oracle"
+	//"github.com/MBZ986/LadonGo/oracle"
 	"github.com/MBZ986/LadonGo/ping"
 	"github.com/MBZ986/LadonGo/port"
 	"github.com/MBZ986/LadonGo/rexec"
@@ -582,9 +582,9 @@ func LadonScan(ScanType string, Target string, result mode.Result) {
 	} else if ScanType == "MONGODBSCAN" {
 		mgo.MongoScan(ScanType, Target,result)
 	} else if ScanType == "ORACLESCAN" {
-		oracle.OracleScan(ScanType, Target,result)
+		//oracle.OracleScan(ScanType, Target,result)
 	} else if ScanType == "SQLPLUSSCAN" {
-		oracle.SqlPlusScan(ScanType, Target,result)
+		//oracle.SqlPlusScan(ScanType, Target,result)
 	} else if ScanType == "WINRMSCAN" {
 		winrm.WinrmScan(ScanType, Target,result)
 	} else if ScanType == "REDISSCAN" {

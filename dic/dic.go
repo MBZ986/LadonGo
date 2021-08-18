@@ -89,7 +89,7 @@ func UserDic() (users []string) {
 }
 
 func PassDic() (password []string) {
-	dicname:=userPassPath
+	dicname:=passPath
 	file, err := os.Open(dicname)
 	if err != nil {
 		fmt.Println("Open "+dicname+" error, %v", err)
