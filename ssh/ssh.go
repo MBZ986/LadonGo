@@ -61,16 +61,10 @@ func (this *Node) Conn(addr string, port string) (*ssh.Client, error) {
 	}
 
 	client, err := ssh.Dial("tcp", fmt.Sprintf("%s:"+port, addr), sshConfig)
-
-	if err != nil {
-		//return nil, fmt.Errorf(fmt.Sprintf("Connect fail \n(%s)", addr, err.Error()))
-	}
-
-	return client, nil
+	return client, err
 }
 
 func ExecCmd(host string, port string, user string, pass string, cmdline string) {
-
 	node := NewNode(user, pass)
 	client, err := node.Conn(host, port)
 	if err == nil {
