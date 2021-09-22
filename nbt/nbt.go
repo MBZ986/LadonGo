@@ -5,10 +5,9 @@ package nbt
 //K8Blog: http://k8gege.org/Ladon
 //Github: https://github.com/k8gege/LadonGo
 import (
-	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/sas/secserver/app/models/asset-scan/mode"
+	"github.com/MBZ986/LadonGo/mode"
 	"golang.org/x/time/rate"
 	"os"
 	"runtime"
@@ -99,23 +98,23 @@ func usage() {
 	flag.PrintDefaults()
 }
 
-var reslist []mode.ScanResult
-
-func outputWriter(o <-chan mode.ScanResult) {
-	for found := range o {
-		fmt.Println("返回数据")
-		//res<-found
-		//reslist = append(reslist, found)
-		j, err := json.Marshal(found)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error marshaling result: '%v' : %s\n", found, err)
-			continue
-		}
-		os.Stdout.Write(j)
-		os.Stdout.Write([]byte("\n"))
-	}
-	wo.Done()
-}
+//var reslist []mode.ScanResult
+//
+//func outputWriter(o <-chan mode.ScanResult) {
+//	for found := range o {
+//		fmt.Println("返回数据")
+//		//res<-found
+//		//reslist = append(reslist, found)
+//		j, err := json.Marshal(found)
+//		if err != nil {
+//			fmt.Fprintf(os.Stderr, "Error marshaling result: '%v' : %s\n", found, err)
+//			continue
+//		}
+//		os.Stdout.Write(j)
+//		os.Stdout.Write([]byte("\n"))
+//	}
+//	wo.Done()
+//}
 
 func initializeProbes(c_out chan<- interface{}) {
 	for _, probe := range probes {
@@ -167,7 +166,7 @@ func Info(target string, result mode.Result) {
 	//fmt.Printf("type:%T value:%#v\n", c_addr, c_addr)
 
 	// Output structs
-	c_out := make(chan mode.ScanResult)
+	c_out := make(chan mode.Result)
 	//infoResult,ok := result.(*mode.NbtInfoResult)
 	//if !ok{
 	//	fmt.Println("类型转换失败")

@@ -7,7 +7,7 @@ package http
 import (
 	"github.com/MBZ986/LadonGo/dic"
 	"github.com/MBZ986/LadonGo/logger"
-	"github.com/sas/secserver/app/models/asset-scan/mode"
+	"github.com/MBZ986/LadonGo/mode"
 	"net/http"
 	"strings"
 )

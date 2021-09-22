@@ -7,8 +7,7 @@ package vul
 import (
 	"crypto/tls"
 	"fmt"
-	"github.com/sas/secserver/app/models/asset-scan/mode"
-
+	"github.com/MBZ986/LadonGo/mode"
 	"encoding/base64"
 	"github.com/fatih/color"
 	"io/ioutil"

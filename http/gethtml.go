@@ -7,7 +7,7 @@ package http
 import (
 	"bytes"
 	"fmt"
-	"github.com/sas/secserver/app/models/asset-scan/mode"
+	"github.com/MBZ986/LadonGo/mode"
 	"github.com/k8gege/LadonGo/str"
 	"io"
 	"net/http"
@@ -53,7 +53,7 @@ func ScanTitle(host string, result mode.Result) {
 		if title != "" {
 			//fmt.Println(host+"\t"+title)
 			//result.Push(map[string]string{host: title})
-			result.Push(fmt.Sprintf("%s\t%s",host,title))
+			result.Push(fmt.Sprintf("%s\t%s", host, title))
 		}
 	} else {
 		url := "http://" + host
@@ -61,14 +61,14 @@ func ScanTitle(host string, result mode.Result) {
 		if title != "" {
 			//fmt.Println(url+"\t"+title)
 			//result.Push(map[string]string{host: title})
-			result.Push(fmt.Sprintf("%s\t%s",host,title))
+			result.Push(fmt.Sprintf("%s\t%s", host, title))
 		}
 		url = "https://" + host
 		title = GetTitle(GetHtml(url))
 		if title != "" {
 			//fmt.Println(url+"\t"+title)
 			//result.Push(map[string]string{host: title})
-			result.Push(fmt.Sprintf("%s\t%s",host,title))
+			result.Push(fmt.Sprintf("%s\t%s", host, title))
 		}
 	}
 }

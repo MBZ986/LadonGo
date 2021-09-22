@@ -7,8 +7,8 @@ package winrm
 import (
 	"fmt"
 	"github.com/MBZ986/LadonGo/dic"
+	"github.com/MBZ986/LadonGo/mode"
 	"github.com/masterzen/winrm"
-	"github.com/sas/secserver/app/models/asset-scan/mode"
 	"os"
 
 	"github.com/MBZ986/LadonGo/port"

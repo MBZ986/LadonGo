@@ -6,7 +6,7 @@ package http
 //Github: https://github.com/k8gege/LadonGo
 import (
 	"fmt"
-	"github.com/sas/secserver/app/models/asset-scan/mode"
+	"github.com/MBZ986/LadonGo/mode"
 	"net/http"
 	//"os"
 	"strings"

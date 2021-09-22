@@ -7,7 +7,7 @@ package port
 import (
 	"bufio"
 	"fmt"
-	"github.com/sas/secserver/app/models/asset-scan/mode"
+	"github.com/MBZ986/LadonGo/mode"
 	"github.com/MBZ986/LadonGo/tcp"
 	"log"
 	"net"
@@ -161,9 +161,9 @@ func ScanPort(host string) {
 	wg.Wait()
 }
 
-func ScanPortBanner(host string,result mode.Result) {
+func ScanPortBanner(host string, result mode.Result) {
 	for _, p := range DefaultPorts {
-		tcp.TcpBanner(host, strconv.Itoa(p),result)
+		tcp.TcpBanner(host, strconv.Itoa(p), result)
 	}
 }
 
@@ -181,27 +181,27 @@ func ScanPorts(host, ports string) {
 	wg.Wait()
 }
 
-func ScanPortBanners(host, ports string,result mode.Result) {
+func ScanPortBanners(host, ports string, result mode.Result) {
 	for _, port := range strings.Split(ports, ",") {
 		//p, err := strconv.Atoi(port)
 		//if err !=nil{
 		//}
 		//tcp.GetBanner(host,p)
-		tcp.TcpBanner(host, port,result)
+		tcp.TcpBanner(host, port, result)
 	}
 }
 
-func ScanPortBannerSingle(host, port string,result mode.Result) {
-	tcp.TcpBanner(host, port,result)
+func ScanPortBannerSingle(host, port string, result mode.Result) {
+	tcp.TcpBanner(host, port, result)
 }
 
-func ScanPortBannerRange(host, ports string,result mode.Result) {
+func ScanPortBannerRange(host, ports string, result mode.Result) {
 	port := strings.Split(ports, "-")
 	p1, _ := strconv.Atoi(port[0])
 	p2, _ := strconv.Atoi(port[1])
 
 	for i := p1; i <= p2; i++ {
-		tcp.TcpBanner(host, strconv.Itoa(i),result)
+		tcp.TcpBanner(host, strconv.Itoa(i), result)
 	}
 
 }

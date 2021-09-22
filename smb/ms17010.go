@@ -7,16 +7,12 @@ package smb
 import (
 	"encoding/binary"
 	"encoding/hex"
-	"github.com/sas/secserver/app/models/asset-scan/mode"
-
-	//"flag"
 	"fmt"
+	"github.com/MBZ986/LadonGo/mode"
+	"github.com/k8gege/LadonGo/logger"
 	"net"
 	"strings"
-	//"sync"
 	"time"
-	//"runtime"
-	"github.com/k8gege/LadonGo/logger"
 )
 
 var (
@@ -130,7 +126,7 @@ func MS17010(ip string, timeout time.Duration, result mode.Result) {
 	} else {
 		//fmt.Printf("%s\t        \t(%s)\n", ip, os)
 		//datamap := map[string]string{"ip": ip, "os": os}
-		result.Push(fmt.Sprintf("%s\t%s",ip,os))
+		result.Push(fmt.Sprintf("%s\t%s", ip, os))
 	}
 
 }

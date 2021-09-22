@@ -9,16 +9,11 @@ import (
 	"bytes"
 	"context"
 	"encoding/binary"
-	"github.com/sas/secserver/app/models/asset-scan/mode"
-
-	//"flag"
-	//"github.com/k8gege/LadonGo/worker"
+	"github.com/MBZ986/LadonGo/mode"
 	"fmt"
 	"log"
 	"net"
 	"strings"
-	//"net/url"
-	//"os"
 	"sync"
 	"time"
 )
@@ -62,10 +57,10 @@ func T3version(host string, result mode.Result) {
 	// if err != nil {
 	// //println(err.Error())
 	// }
-	T3Connect(host + ":7001",result)
-	T3Connect(host + ":7002",result)
-	T3Connect(host,result)
-	T3Connect(host + ":8080",result)
+	T3Connect(host+":7001", result)
+	T3Connect(host+":7002", result)
+	T3Connect(host, result)
+	T3Connect(host+":8080", result)
 }
 
 func Int8byte(y int) []byte {
@@ -128,7 +123,7 @@ func ReadAll(conn net.Conn, host string, result mode.Result) {
 			ver := GetBetweenStr(res, ":", ".false")
 			if strings.Contains(res, ".false") {
 				//fmt.Printf(host+"\tWeblogic%s\n", ver)
-				result.Push(fmt.Sprintf("%s\tWeblogic%s",host,ver))
+				result.Push(fmt.Sprintf("%s\tWeblogic%s", host, ver))
 			}
 		}
 		ch <- struct{}{}

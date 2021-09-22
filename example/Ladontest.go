@@ -2,13 +2,19 @@ package main
 
 import (
 	"fmt"
-	ladon "github.com/MBZ986/LadonGo"
-	"github.com/sas/secserver/app/models/asset-scan/mode"
-	"github.com/davecgh/go-spew/spew"
 	"runtime"
-	"sync"
 	"time"
 )
+
+//import (
+//	"fmt"
+//	ladon "github.com/MBZ986/LadonGo"
+//	"github.com/MBZ986/LadonGo/mode"
+//	"github.com/davecgh/go-spew/spew"
+//	"runtime"
+//	"sync"
+//	"time"
+//)
 
 func main() {
 	//time.Sleep(1 * time.Second)
@@ -132,7 +138,7 @@ func main() {
 //	proxyRun(new(mode.BaseResult), "Ladon", "192.168.128.0/24", "IcmpScan")
 //}
 //
-////NBTINFO
+//NBTINFO
 //func testNbtInfo() {
 //	//var result mode.Result = new(mode.NbtInfoResult)
 //	//result.Init(4)
@@ -141,57 +147,57 @@ func main() {
 //	//result.WaitProc()
 //	//spew.Dump(process)
 //
-//	proxyRun(new(mode.NbtInfoResult), "Ladon", "192.168.128.0/24", "nbtinfo")
+//	proxyRun(*new(mode.Result), "Ladon", "192.168.128.0/24", "nbtinfo")
 //}
 
 //PINGSCAN
-func testPingScan() {
-	//var result mode.Result = new(mode.BaseResult)
-	//result.Init()
-	//go ladon.Run(result, "Ladon", "192.168.128.0/24", "PingScan")
-	//process := result.Process()
-	//result.WaitProc()
-	//spew.Dump(process)
+//func testPingScan() {
+//	//var result mode.Result = new(mode.BaseResult)
+//	//result.Init()
+//	//go ladon.Run(result, "Ladon", "192.168.128.0/24", "PingScan")
+//	//process := result.Process()
+//	//result.WaitProc()
+//	//spew.Dump(process)
+//
+//	proxyRun(new(mode.BaseResult), "Ladon", "192.168.131.0/24", "PingScan")
+//}
 
-	proxyRun(new(mode.BaseResult), "Ladon", "192.168.131.0/24", "PingScan")
-}
-
-func proxyRun(result mode.Result, params ...string) {
-	result.Init()
-	go ladon.Run(result, params...)
-	//go func() {
-	//	time.Sleep(5*time.Second)
-	//	fmt.Println("结束任务")
-	//	result.CloseOut()
-	//}()
-	process := result.Process()
-	//result.WaitProc()
-	spew.Dump(process)
-}
-
-func resfunc(o <-chan interface{}) {
-	for v := range o {
-		spew.Dump(v)
-	}
-}
-
-func testGorouting() {
-	bools := make(chan string)
-	group := new(sync.WaitGroup)
-	group.Add(1)
-	go func(x <-chan string) {
-		fmt.Println("开始携程")
-		for data := range x {
-			fmt.Printf("接收到数据\n")
-			fmt.Println(data)
-		}
-		group.Done()
-	}(bools)
-
-	for i := 0; i < 10; i++ {
-		bools <- fmt.Sprintf("fuck:%d", i)
-		time.Sleep(10 * time.Millisecond)
-	}
-	close(bools)
-	group.Wait()
-}
+//func proxyRun(result mode.Result, params ...string) {
+//	result.Init()
+//	go ladon.Run(result, params...)
+//	//go func() {
+//	//	time.Sleep(5*time.Second)
+//	//	fmt.Println("结束任务")
+//	//	result.CloseOut()
+//	//}()
+//	process := result.Process()
+//	//result.WaitProc()
+//	spew.Dump(process)
+//}
+//
+//func resfunc(o <-chan interface{}) {
+//	for v := range o {
+//		spew.Dump(v)
+//	}
+//}
+//
+//func testGorouting() {
+//	bools := make(chan string)
+//	group := new(sync.WaitGroup)
+//	group.Add(1)
+//	go func(x <-chan string) {
+//		fmt.Println("开始携程")
+//		for data := range x {
+//			fmt.Printf("接收到数据\n")
+//			fmt.Println(data)
+//		}
+//		group.Done()
+//	}(bools)
+//
+//	for i := 0; i < 10; i++ {
+//		bools <- fmt.Sprintf("fuck:%d", i)
+//		time.Sleep(10 * time.Millisecond)
+//	}
+//	close(bools)
+//	group.Wait()
+//}

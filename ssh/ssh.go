@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"github.com/MBZ986/LadonGo/dic"
 	"github.com/MBZ986/LadonGo/logger"
+	"github.com/MBZ986/LadonGo/mode"
 	"github.com/MBZ986/LadonGo/port"
-	"github.com/sas/secserver/app/models/asset-scan/mode"
 	"golang.org/x/crypto/ssh"
 	"net"
 	"strings"
@@ -202,7 +202,7 @@ func SshScan(ScanType string, Target string, result mode.Result) {
 
 			}
 		} else {
-			SshScan2(ScanType, Target,result)
+			SshScan2(ScanType, Target, result)
 		}
 	}
 }

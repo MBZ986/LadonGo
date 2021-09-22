@@ -6,7 +6,7 @@ package ping
 //Github: https://github.com/k8gege/LadonGo
 import (
 	"bytes"
-	"github.com/sas/secserver/app/models/asset-scan/mode"
+	"github.com/MBZ986/LadonGo/mode"
 	"os/exec"
 	//"log"
 	"fmt"

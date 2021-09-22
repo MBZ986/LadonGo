@@ -5,7 +5,7 @@ package dcom
 //K8Blog: http://k8gege.org/Ladon
 //Github: https://github.com/k8gege/LadonGo
 import (
-	"github.com/sas/secserver/app/models/asset-scan/mode"
+	"github.com/MBZ986/LadonGo/mode"
 	"net"
 	"strings"
 	"time"

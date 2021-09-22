@@ -8,7 +8,7 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"github.com/sas/secserver/app/models/asset-scan/mode"
+	"github.com/MBZ986/LadonGo/mode"
 	"io"
 	"net"
 	"strconv"
@@ -127,26 +127,25 @@ func TcpBanner(host, port string, result mode.Result) {
 			banner = string(buff[:n])
 		}
 
-
 		banner = strings.Replace(banner, "\r\n", " ", -1)
 		//var datamap map[string]string
 		var datastr string
 		if strings.Contains(banner, "SSH-") {
 			//logger.PrintMagenta(host + " " + port + " Open " + banner)
 			//datamap = map[string]string{"host":host,"port":port,"banner":banner,"type":"SSH"}
-			datastr = fmt.Sprintf("%s\t%s\t%s\t%s",host,port,"SSH",banner)
+			datastr = fmt.Sprintf("%s\t%s\t%s\t%s", host, port, "SSH", banner)
 		} else if strings.Contains(banner, "HTTP/1") {
 			//logger.PrintYellow(host + " " + port + " Open " + banner)
 			//datamap = map[string]string{"host":host,"port":port,"banner":banner,"type":"HTTP/1"}
-			datastr = fmt.Sprintf("%s\t%s\t%s\t%s",host,port,"HTTP/1",banner)
+			datastr = fmt.Sprintf("%s\t%s\t%s\t%s", host, port, "HTTP/1", banner)
 		} else if strings.Contains(banner, "FTP") {
 			//logger.PrintBlue(host + " " + port + " Open " + banner)
 			//datamap = map[string]string{"host":host,"port":port,"banner":banner,"type":"FTP"}
-			datastr = fmt.Sprintf("%s\t%s\t%s\t%s",host,port,"FTP",banner)
+			datastr = fmt.Sprintf("%s\t%s\t%s\t%s", host, port, "FTP", banner)
 		} else {
 			//fmt.Println(host, port, "Open", banner)
 			//datamap = map[string]string{"host":host,"port":port,"banner":banner,"type":"-"}
-			datastr = fmt.Sprintf("%s\t%s\t%s\t%s",host,port,"-",banner)
+			datastr = fmt.Sprintf("%s\t%s\t%s\t%s", host, port, "-", banner)
 		}
 		result.Push(datastr)
 	}

@@ -8,9 +8,9 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/MBZ986/LadonGo/dic"
+	"github.com/MBZ986/LadonGo/mode"
 	"github.com/MBZ986/LadonGo/port"
 	_ "github.com/denisenkom/go-mssqldb"
-	"github.com/sas/secserver/app/models/asset-scan/mode"
 	"strings"
 )
 
@@ -69,7 +69,7 @@ func MssqlScan(ScanType string, Target string, result mode.Result) {
 				}
 			}
 		} else {
-			MssqlScan2(ScanType, Target,result)
+			MssqlScan2(ScanType, Target, result)
 		}
 	}
 }

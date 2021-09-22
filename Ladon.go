@@ -12,7 +12,7 @@ import (
 	"github.com/MBZ986/LadonGo/ftp"
 	"github.com/MBZ986/LadonGo/http"
 	"github.com/MBZ986/LadonGo/icmp"
-	"github.com/sas/secserver/app/models/asset-scan/mode"
+	"github.com/MBZ986/LadonGo/mode"
 	"github.com/MBZ986/LadonGo/mongodb"
 	"github.com/MBZ986/LadonGo/mssql"
 	"github.com/MBZ986/LadonGo/mysql"
@@ -479,7 +479,7 @@ func LadonScan(ScanType string, Target string, result mode.Result) {
 	if ScanType == "GETEXFQND" || ScanType == "FINDEXCHANGE" {
 		//vul.GetExFQND(Target)
 	} else if ScanType == "CVE-2021-26855" {
-		vul.CheckCVE_2021_26855(Target,result)
+		vul.CheckCVE_2021_26855(Target, result)
 	} else if ScanType == "CVE-2021-21972" {
 		vul.CheckCVE_2021_21972(Target, result)
 	} else if ScanType == "PINGSCAN" || ScanType == "PING" {
@@ -564,37 +564,37 @@ func LadonScan(ScanType string, Target string, result mode.Result) {
 	} else if ScanType == "MS17010" {
 		smb.MS17010(Target, 3, result)
 	} else if ScanType == "SMBSCAN" {
-		smb.SmbScan(ScanType, Target,result)
+		smb.SmbScan(ScanType, Target, result)
 	} else if ScanType == "NBTINFO" {
 		//nbt.Info(ScanType,Target)
 		//nbt.Info(Target)
 		//nbt.Info()
 	} else if ScanType == "FTPSCAN" {
-		ftp.FtpScan(ScanType, Target,result)
+		ftp.FtpScan(ScanType, Target, result)
 	} else if ScanType == "SMBGHOST" || ScanType == "CVE-2020-0796" {
 		smb.SmbGhost(Target, 445, result)
 	} else if ScanType == "SSHSCAN" {
-		ssh.SshScan(ScanType, Target,result)
+		ssh.SshScan(ScanType, Target, result)
 	} else if ScanType == "MYSQLSCAN" {
-		mysql.MysqlScan(ScanType, Target,result)
+		mysql.MysqlScan(ScanType, Target, result)
 	} else if ScanType == "MSSQLSCAN" {
-		mssql.MssqlScan(ScanType, Target,result)
+		mssql.MssqlScan(ScanType, Target, result)
 	} else if ScanType == "MONGODBSCAN" {
-		mgo.MongoScan(ScanType, Target,result)
+		mgo.MongoScan(ScanType, Target, result)
 	} else if ScanType == "ORACLESCAN" {
 		//oracle.OracleScan(ScanType, Target,result)
 	} else if ScanType == "SQLPLUSSCAN" {
 		//oracle.SqlPlusScan(ScanType, Target,result)
 	} else if ScanType == "WINRMSCAN" {
-		winrm.WinrmScan(ScanType, Target,result)
+		winrm.WinrmScan(ScanType, Target, result)
 	} else if ScanType == "REDISSCAN" {
 		redis.RedisNullScan(ScanType, Target)
 	} else if ScanType == "ROUTEROSSCAN" {
-		routeros.RouterOSScan(ScanType, Target,result)
+		routeros.RouterOSScan(ScanType, Target, result)
 	} else if ScanType == "CVE-2018-14847" {
 		exp.Cve2018_14847Exp(Target, "8291")
 	} else if ScanType == "HTTPBASICSCAN" || ScanType == "BASICAUTHSCAN" || ScanType == "401SCAN" {
-		http.BasicAuthScan(ScanType, "http://"+Target,result)
+		http.BasicAuthScan(ScanType, "http://"+Target, result)
 	} else {
 		fmt.Println(ScanType, "Moudle Not Found")
 		os.Exit(0)
@@ -608,7 +608,7 @@ func LadonUrlScan(ScanType string, Target string, result mode.Result) {
 	} else if ScanType == "HTTPTITLE" || ScanType == "WEBTITLE" {
 		http.ScanTitle(Target, result)
 	} else if ScanType == "HTTPBASICSCAN" || ScanType == "BASICAUTHSCAN" || ScanType == "401SCAN" {
-		http.BasicAuthScan(ScanType, Target,result)
+		http.BasicAuthScan(ScanType, Target, result)
 	} else {
 		fmt.Println(ScanType, "Moudle Not Found")
 		os.Exit(0)
